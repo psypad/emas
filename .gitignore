@@ -19,3 +19,62 @@ target/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+
+# ====================
+# Global
+# ====================
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.bak
+*.tmp
+*.log
+
+# ====================
+# Rust
+# ====================
+/backend/target/
+/backend/.cargo/
+/backend/Cargo.lock
+
+# Ignore environment and config files
+/backend/.env
+/backend/sqlx-data.json
+
+# Clippy, rustfmt, etc.
+**/*.rs.bk
+**/*.rs~
+
+
+# ====================
+# SvelteKit / Frontend
+# ====================
+/frontend/node_modules/
+/frontend/.svelte-kit/
+/frontend/.vercel/
+/frontend/build/
+/frontend/dist/
+/frontend/.env
+/frontend/.env.*  # Optional environment variants
+
+# SvelteKit + Tailwind cache
+/frontend/.turbo/
+/frontend/.vite/
+/frontend/.eslintcache
+
+# npm/yarn/pnpm lockfiles (optional, based on what you commit)
+# /frontend/package-lock.json
+# /frontend/yarn.lock
+# /frontend/pnpm-lock.yaml
+
+# ====================
+# Editor + OS Files
+# ====================
+*.code-workspace
+.idea/
+.vscode/
+*.iml
+*.class
+*.pyc
+__pycache__/
