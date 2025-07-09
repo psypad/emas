@@ -15,6 +15,13 @@ struct LoginRequest {
     password: String,
 }
 
+#[derive(Deserialize)]
+struct RegisterRequest{
+    name: String,
+    email: String,
+    password: String,
+}
+
 async fn login_handler(Json(payload): Json<LoginRequest>) -> impl IntoResponse {
     println!("Received login: {} / {}", payload.email, payload.password);
     
@@ -23,6 +30,17 @@ async fn login_handler(Json(payload): Json<LoginRequest>) -> impl IntoResponse {
     let body = serde_json::json!({
         "token": dummy_token,
         "message": "Login success"
+    });
+
+    (StatusCode::OK, Json(body))
+}
+
+async fn register_handler(Json(payload): Json<RegisterRequest>) -> impl IntoResponse {
+    println!("Received Registration: {} / {} / {}", payload.name  , payload.email, payload.password);
+
+
+    let body = serde_json::json!({
+        "message": "Register success"
     });
 
     (StatusCode::OK, Json(body))
@@ -40,6 +58,7 @@ async fn main() {
     let app = Router::new()
         .route("/", get(|| async { "Hello, World!" }))
         .route("/api/auth/login", post(login_handler))
+        .route("/api/auth/register", post(register_handler))
         .layer(cors);
 
     println!("server listening on: http://localhost:3000/");
