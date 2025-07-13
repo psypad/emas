@@ -78,3 +78,7 @@ Thumbs.db
 *.class
 *.pyc
 __pycache__/
+
+
+# Ignore example folder
+Example/

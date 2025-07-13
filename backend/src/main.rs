@@ -1,11 +1,11 @@
 use axum::{
     Json, Router,
-    extract::State,
     http::StatusCode,
     response::IntoResponse,
     routing::{get, post},
 };
 use serde::Deserialize;
+use serde_json::json;
 use std::net::SocketAddr;
 use tower_http::cors::{CorsLayer, Any};
 
@@ -54,16 +54,66 @@ async fn main() {
     .allow_methods(Any)
     .allow_headers(Any);
 
+
     // build our application with a single route
     let app = Router::new()
         .route("/", get(|| async { "Hello, World!" }))
         .route("/api/auth/login", post(login_handler))
         .route("/api/auth/register", post(register_handler))
+        .route("/api/keys", get(get_keys).post(generate_key))
+        .route("/api/metrics", get(get_metrics))
+        .route("/api/logs", get(get_logs))
+        .route("/health", get(health_check_handler))
         .layer(cors);
 
-    println!("server listening on: http://localhost:3000/");
+    let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
+    println!("Running on http://{}", addr);
 
     // run our app with hyper, listening globally on port 3000
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
+    let listener = tokio::net::TcpListener::bind(&addr).await.unwrap();
     axum::serve(listener, app).await.unwrap();
+}
+
+async fn health_check_handler() -> impl IntoResponse {
+    let healthy = true; // Later, you can insert DB or Redis checks here
+
+    if healthy {
+        let response = json!({
+            "status": "ok",
+            "uptime": "running",
+            "message": "API backend is healthy",
+            "code": 200
+        });
+
+        (StatusCode::OK, Json(response))
+    } else {
+        let response = json!({
+            "status": "error",
+            "message": "Service unavailable"
+        });
+
+        (StatusCode::SERVICE_UNAVAILABLE, Json(response))
+    }
+}
+
+
+async fn get_keys() -> Json<serde_json::Value> {
+    Json(json!({ "keys": ["key-abc123", "key-xyz789"] }))
+}
+
+async fn generate_key(Json(payload): Json<serde_json::Value>) -> Json<serde_json::Value> {
+    println!("Generating key for {:?}", payload);
+    Json(json!({ "key": "key-generated" }))
+}
+
+async fn get_metrics() -> Json<serde_json::Value> {
+    Json(json!({ "status": "up" }))
+}
+
+async fn get_logs() -> Json<serde_json::Value>  {
+    Json(json!({ 
+        "GET /api/users ": "200 OK", 
+        "POST /api/data ": "401 Unauthorized",
+    }
+    ))
 }
