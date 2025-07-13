@@ -59,7 +59,7 @@
 </script>
 
 
-<fieldset>
+<fieldset class = "field">
   <legend>Login:</legend>
     <form action="" method="get" class="form-example">
         <div class="form-example">
@@ -96,9 +96,15 @@
     .form-example{
         padding: 10px;
     }
+    
+    .field{
+        justify-self: anchor-center;
+    }
 
     .submit{
         padding: 15px;
+        justify-self: center;
+        
     }
 
 </style>

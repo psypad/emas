@@ -29,11 +29,12 @@
         margin: 40px;
         background-color: lightgray;
         padding: 10px;
-        content: justify-self;
+        justify-self: stretch;
     }
 
     p {
 		color: rgb(233, 121, 121);
+        justify-self: center;
 	}
 	div :global(strong) {
 		color: goldenrod;

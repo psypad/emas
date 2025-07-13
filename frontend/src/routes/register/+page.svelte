@@ -5,7 +5,7 @@
 </script>
 
 
-<fieldset>
+<fieldset class = "field">
   <legend>Register:</legend>
     <form action="" method="get" class="form-example">
         <div class="form-example">
@@ -39,6 +39,13 @@
 
     .submit{
         padding: 15px;
+        justify-self: center;
+        
     }
+
+    .field{
+        justify-self: anchor-center;
+    }
+    
 
 </style>

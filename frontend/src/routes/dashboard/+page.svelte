@@ -42,9 +42,11 @@
 <style>
     .space{
         padding: 10px;
+        justify-self: start;
     }
     .padlef{
         padding: 10px;
+        justify-self: start;
     }
 </style>
 
