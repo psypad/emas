@@ -56,95 +56,137 @@
   }
 </script>
 
-<fieldset class="field">
-  <legend>Login</legend>
-  <form on:submit={handleLogin}>
-    <div class="form-example">
-      <label for="email">Email:</label>
-      <input
-        bind:value={email}
-        type="email"
-        name="email"
-        id="email"
-        required
-        placeholder="Enter your email"
-      />
-    </div>
-    <div class="form-example">
-      <label for="password">Password:</label>
-      <input
-        bind:value={password}
-        type="password"
-        name="password"
-        id="password"
-        required
-        placeholder="Enter your password"
-      />
-    </div>
-    <div class="form-example">
-      <input
-        bind:checked={remember}
-        type="checkbox"
-        id="remember"
-        name="remember"
-      />
-      <label for="remember">Remember me</label>
-    </div>
-    <div class="submit">
-      <button type="submit" disabled={isLoading}>
-        {isLoading ? 'Logging in...' : 'Login'}
-      </button>
-    </div>
-  </form>
+<div class="center-container">
+  <fieldset class="field">
+    <legend>Login</legend>
+    <form on:submit={handleLogin}>
+      <div class="form-example">
+        <label for="email">Email:</label>
+        <input
+          bind:value={email}
+          type="email"
+          name="email"
+          id="email"
+          required
+          placeholder="Enter your email"
+        />
+      </div>
+      <div class="form-example">
+        <label for="password">Password:</label>
+        <input
+          bind:value={password}
+          type="password"
+          name="password"
+          id="password"
+          required
+          placeholder="Enter your password"
+        />
+      </div>
+      <div class="form-example">
+        <input
+          bind:checked={remember}
+          type="checkbox"
+          id="remember"
+          name="remember"
+        />
+        <label for="remember">Remember me</label>
+      </div>
+      <div class="submit">
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? 'Logging in...' : 'Login'}
+        </button>
+      </div>
+    </form>
 
-  {#if error}
-    <p style="color: red;">{error}</p>
-  {/if}
-  {#if success}
-    <p style="color: green;">{success}</p>
-  {/if}
-</fieldset>
+    {#if error}
+      <p style="color: red;">{error}</p>
+    {/if}
+    {#if success}
+      <p style="color: green;">{success}</p>
+    {/if}
+  </fieldset>
+</div>
 
 <style>
-  .field {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+  .center-container {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center;   /* Centers vertically */
+    flex: 1;               /* Takes up all available space to enable centering */
   }
+ .field {
+    max-width: 400px;
+    width: 100%; /* Ensures it doesn't look too small on mobile */
+    padding: 20px;
+    border: 1px solid #555;
+    border-radius: 8px;
+    background-color: #2d2d2d; /* Example dark background */
+  }
+
   .form-example {
-    padding: 10px;
+    padding: 10px 0;
     display: flex;
     flex-direction: column;
     gap: 5px;
   }
+  
+  /* Specific style for the checkbox layout */
+  .remember-me {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+
   .submit {
-    padding: 15px;
+    padding: 15px 0 0 0;
     text-align: center;
   }
+
   label {
     font-weight: bold;
+    color: #eee;
   }
-  input[type="email"],
-  input[type="password"] {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  button {
+
+  input[type='email'],
+  input[type='password'] {
     padding: 10px;
+    border: 1px solid #555;
+    border-radius: 4px;
+    background-color: #333;
+    color: #fff;
+    font-size: 1rem;
+  }
+
+  button {
+    padding: 10px 20px;
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s;
   }
+
   button:disabled {
     background-color: #6c757d;
     cursor: not-allowed;
   }
+
   button:hover:not(:disabled) {
     background-color: #0056b3;
   }
+
+  .error-message {
+    color: #ff4d4d;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .success-message {
+    color: #4dff88;
+    text-align: center;
+    margin-top: 10px;
+  }
+
 </style>

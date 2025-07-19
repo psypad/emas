@@ -6,6 +6,7 @@ use chrono::{DateTime, Utc};
 #[derive(Debug, FromRow, Serialize, Deserialize)]
 #[allow(non_snake_case)]
 pub struct UserModel {
+    #[derive(serde::Serialize, serde::Deserialize)]
     pub id: Uuid,
 
     pub name: String,

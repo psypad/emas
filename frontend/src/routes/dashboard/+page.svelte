@@ -1,4 +1,7 @@
 <script lang="ts">
+    import Footer from "../../components/footer.svelte";
+    import DashboardHeader from "../../components/Dashboard-Header.svelte";
+
     import { onMount } from "svelte";
 
     let status: string = "";
@@ -23,23 +26,42 @@
 
 </script>
 
-<fieldset class = "space">
-    <legend>Backend status:</legend>
-    <p class = "padlef"> {status}</p>
-</fieldset>
+<div class = "page-container">
+    <DashboardHeader />
 
-<fieldset class = "space">
-    <legend>API Request Logs:</legend>
-    <div class = "padlef">
-        <ul>
-        {#each Object.entries(logs) as [endpoint, status]}
-            <li><code>{endpoint}</code>: <span>{status}</span></li>
-        {/each}
-        </ul>
-    </div>
-</fieldset>
+    <main>
+        <fieldset class = "space">
+            <legend>Backend status:</legend>
+            <p class = "padlef"> {status}</p>
+        </fieldset>
+
+        <fieldset class = "space">
+            <legend>API Request Logs:</legend>
+            <div class = "padlef">
+                <ul>
+                {#each Object.entries(logs) as [endpoint, status]}
+                    <li><code>{endpoint}</code>: <span>{status}</span></li>
+                {/each}
+                </ul>
+            </div>
+        </fieldset>
+    </main>
+
+    <Footer />
+</div>
 
 <style>
+    
+    .page-container {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh; /* Set the container's minimum height to 100% of the viewport height */
+    }
+
+    main {
+        flex: 1; /* This is the key: it makes the main area grow to fill any available space */
+    }
+
     .space{
         padding: 10px;
         justify-self: start;
